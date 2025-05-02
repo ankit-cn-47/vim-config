@@ -1,0 +1,149 @@
+call plug#begin('~/.vim/plugged')
+
+" NERDTree for file explorer
+Plug 'preservim/nerdtree'
+
+" Language syntax highlighting and other features (includes Groovy)
+Plug 'sheerun/vim-polyglot'
+
+" Autocompletion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Snippets
+Plug 'honza/vim-snippets'
+
+" Git integration (Optional, add these if you want Git support)
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Gruvbox color scheme
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
+" NERDTree settings
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+
+" coc.nvim settings
+" Use <Tab> and <Shift-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <CR> to confirm completion
+inoremap <expr> <CR>    pumvisible() ? coc#_select_confirm() : "\<CR>"
+inoremap <Tab> <C-r>=pumvisible() ? coc#_select_confirm() : ""<CR>
+
+" Trigger configuration for coc.nvim extensions
+let g:coc_global_extensions = [
+\ 'coc-snippets',
+\ 'coc-pyright',
+\ 'coc-tsserver',
+\ 'coc-sh',
+\ 'coc-yaml',
+\ 'coc-json',
+\ 'coc-html',
+\ 'coc-css'
+\ ]
+
+" Optional: Gitgutter settings (if using vim-gitgutter)
+let g:gitgutter_map_keys = 0  " Disable default key mappings if preferred
+
+" Optional: vim-fugitive settings (if using vim-fugitive)
+" You can add custom commands or mappings for vim-fugitive here
+
+" Set color scheme to gruvbox
+set background=dark
+colorscheme vim-atom-dark
+
+" Filetype specific indenting
+filetype plugin indent on
+
+" Enable syntax highlighting
+syntax on
+
+" Set encoding to UTF-8
+set encoding=utf-8
+
+" Set terminal GUI colors
+set termguicolors
+
+" Set line numbers
+set number
+
+" Highlight current line
+set cursorline
+
+" Set tabstop and shiftwidth for proper indentation
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Enable mouse support
+set mouse=a
+
+" Set backspace so it acts as it should act
+set backspace=indent,eol,start
+
+" Remember last position in file
+au BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\   exe "normal! g`\"" |
+\ endif
+
+" Optional: Disable annoying beep sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Optional: Set up status line
+set laststatus=2
+
+" Optional: Enable folding
+set foldmethod=indent
+set foldlevelstart=10
+
+" Optional: Set backup and swap directories to avoid clutter
+set backupdir=~/.vim/backups//
+set directory=~/.vim/swaps//
+
+" Optional: Set undo directory to enable persistent undo
+set undodir=~/.vim/undo//
+set undofile
+
+" Optional: Set search options
+set ignorecase      " Case insensitive searching
+set smartcase       " Case sensitive if expression has a capital letter
+set incsearch       " Incremental search
+set hlsearch        " Highlight search results
+
+" Optional: Set command line height to 2 lines to avoid clutter
+set cmdheight=2
+
+" Optional: Set wildmenu to enhance command line completion
+set wildmenu
+set wildmode=list:longest
+
+" Optional: Set split window directions
+set splitbelow
+set splitright
+
+" Optional: Set the clipboard to use system clipboard
+set clipboard=unnamedplus
+
+" Optional: Set auto read when a file is changed from the outside
+set autoread
+au CursorHold * checktime
+
+" Optional: Set up your key mappings
+nnoremap <C-w> :write<CR>
+nnoremap <C-q> :quit<CR>
+nnoremap <C-o> :only<CR>
+nnoremap <C-h> :split<CR>
+nnoremap <C-v> :vsplit<CR>
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-x> :close<CR>
+" Optional: Add any additional custom configurations or plugins here End of .vimrc
+" :PlugInstall
+" :CocInstall coc-pyright coc-tsserver coc-html coc-css coc-groovy
